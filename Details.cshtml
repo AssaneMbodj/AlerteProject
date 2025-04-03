@@ -1,4 +1,4 @@
-﻿@model WebApp.Models.Alerte
+﻿@model WebApp.Models.Utilisateur
 
 @{
     ViewData["Title"] = "Details";
@@ -7,54 +7,30 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Alerte</h4>
+    <h4>Utilisateur</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Titre)
+            @Html.DisplayNameFor(model => model.Nom)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Titre)
+            @Html.DisplayFor(model => model.Nom)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Type)
+            @Html.DisplayNameFor(model => model.Prenom)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Type)
+            @Html.DisplayFor(model => model.Prenom)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Role)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Lieu)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Lieu)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NiveauDanger)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NiveauDanger)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateCreation)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateCreation)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UtilisateurId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UtilisateurId)
+            @Html.DisplayFor(model => model.Role)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model?.id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
