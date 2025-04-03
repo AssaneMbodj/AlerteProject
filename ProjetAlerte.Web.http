@@ -1,0 +1,6 @@
+@ProjetAlerte.Web_HostAddress = http://localhost:5122
+
+GET {{ProjetAlerte.Web_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

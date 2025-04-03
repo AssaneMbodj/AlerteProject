@@ -1,0 +1,20 @@
+// Objet JavaScript équivalent
+const config = {
+  ConnectionStrings: {
+    DefaultConnection: "Server=(localdb)\\mssqllocaldb;Database=ProjetAlerteDB;Trusted_Connection=True;"
+  },
+  Jwt: {
+    Key: "VotreCléSecrèteDe64CaractèresMinimum1234567890!!!!!!",
+    Issuer: "ProjetAlerte.API",
+    Audience: "ProjetAlerte.Web",
+    ExpireHours: 72
+  },
+  Logging: {
+    LogLevel: {
+      Default: "Information",
+      Microsoft.AspNetCore: "Warning",
+      Microsoft.EntityFrameworkCore.Database.Command: "Warning"
+    }
+  },
+  AllowedHosts: "*"
+};

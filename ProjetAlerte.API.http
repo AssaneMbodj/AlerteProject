@@ -1,0 +1,6 @@
+@ProjetAlerte.API_HostAddress = http://localhost:5124
+
+GET {{ProjetAlerte.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

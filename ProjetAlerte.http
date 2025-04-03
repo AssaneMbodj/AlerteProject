@@ -1,0 +1,6 @@
+@ProjetAlerte_HostAddress = http://localhost:5100
+
+GET {{ProjetAlerte_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

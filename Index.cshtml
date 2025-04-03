@@ -1,47 +1,84 @@
-﻿@model IEnumerable<WebApp.Models.Utilisateur>
+﻿@model List<ProjetAlerte.Database.Models.Alerte>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Alertes en cours";
 }
 
-<h1>Index</h1>
+<div class="container mt-4">
+    <h1 class="mb-4">@ViewData["Title"]</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nom)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Prenom)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Role)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Prenom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Role)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
-            </td>
-        </tr>
+    <!-- Carte interactive -->
+    <div id="map" style="height: 500px; border-radius: 8px;" class="mb-4"></div>
+
+    <!-- Tableau des alertes -->
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Titre</th>
+                <th>Localisation</th>
+                <th>Niveau de danger</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var alerte in Model)
+            {
+                <tr>
+                    <td>@alerte.Titre</td>
+                    <td>@Math.Round(alerte.Latitude, 4), @Math.Round(alerte.Longitude, 4)</td>
+                    <td>
+                        <span class="badge @GetBadgeClass(alerte.NiveauDanger)">
+                            @alerte.NiveauDanger
+                        </span>
+                    </td>
+                    <td>@alerte.Statut</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        .leaflet-popup-content {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        .badge-faible { background-color: #28a745; }
+        .badge-moyen { background-color: #ffc107; }
+        .badge-élevé { background-color: #dc3545; }
+    </style>
 }
-    </tbody>
-</table>
+
+@section Scripts {
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Initialisation de la carte
+        var map = L.map('map').setView([14.7645, -17.3660], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+        // Ajout des marqueurs
+        @foreach (var alerte in Model)
+        {
+            <text>
+                L.marker([@alerte.Latitude, @alerte.Longitude])
+                    .addTo(map)
+                    .bindPopup('<b>@alerte.Titre</b><br>@alerte.Description');
+            </text>
+        }
+    </script>
+}
+
+@functions {
+    public string GetBadgeClass(string niveau)
+    {
+        return niveau switch
+        {
+            "Faible" => "badge-faible",
+            "Moyen" => "badge-moyen",
+            "Élevé" => "badge-élevé",
+            _ => "badge-secondary"
+        };
+    }
+}
